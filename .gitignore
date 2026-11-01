@@ -1,0 +1,57 @@
+# Dependency directories (Folder library)
+node_modules/
+jspm_packages/
+web_stage/
+
+# Build and distribution outputs (Folder hasil compile)
+dist/
+build/
+.next/
+out/
+.docusaurus/
+.cache/
+
+# Debug and log files (File catatan error)
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+*.log
+
+# Environment variables & Secrets (SANGAT PENTING: Jangan upload token/password)
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+*.env
+*.env.*
+!.env.example
+
+# OS and Editor files (File sampah bawaan komputer/editor)
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Prisma specific (Jika kamu menggunakan Prisma)
+/prisma/migrations/
+# Catatan: Jangan ignore schema.prisma, tapi pastikan DATABASE_URL ada di dalam .env yang di-ignore
+
+# Diagnostic reports and coverage (Testing)
+coverage/
+.nyc_output/
+
+# Optional: Tmp or backup files
+.eslintcache
+.stylelintcache
+*.bak
+
+# database
+db/

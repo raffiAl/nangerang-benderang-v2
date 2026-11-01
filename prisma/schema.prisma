@@ -1,0 +1,37 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// Nangerang Benderang — Kas Iuran Beras
+// Satu baris = satu kejadian: iuran beras masuk, beras dijual, atau uang keluar.
+// type: "IURAN" | "PENJUALAN" | "PENGELUARAN"
+model Transaction {
+  id         String   @id @default(cuid())
+  type       String // IURAN: beras masuk (kg) | PENJUALAN: beras keluar (kg) + uang masuk | PENGELUARAN: uang keluar
+  date       DateTime // tanggal kejadian (disimpan sebagai UTC midnight)
+  riceKg     Float? // IURAN: kg masuk | PENJUALAN: kg keluar
+  pricePerKg Float? // PENJUALAN saja: harga jual per kg
+  amount     Float? // PENJUALAN: total uang masuk (kg x harga, dihitung server) | PENGELUARAN: uang keluar
+  note       String? // catatan opsional; untuk PENGELUARAN wajib (keterangan buat apa)
+  createdAt  DateTime @default(now())
+
+  @@index([date])
+}
+
+// Jadwal ronda mingguan: satu baris = tim ronda untuk 1 hari dalam 1 minggu.
+// weekStart = tanggal Senin minggu tsb (YYYY-MM-DD), dayOfWeek: 0=Senin .. 6=Minggu.
+// Nama anggota diketik bebas (tanpa akun) — disimpan sebagai JSON array of string.
+model RondaDay {
+  id        String   @id @default(cuid())
+  weekStart String
+  dayOfWeek Int
+  members   String // JSON string[]
+  updatedAt DateTime @updatedAt
+
+  @@unique([weekStart, dayOfWeek])
+}
